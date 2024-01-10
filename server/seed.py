@@ -63,21 +63,6 @@ with app.app_context():
 
     db.session.add_all(patients)
     db.session.add_all(doctors)
-
-    db.session.query(Review).delete()
-    reviews = []
-
-    for _ in range(50):
-        review = Review(
-            patient_name=random_choice([patient.name for patient in patients]),
-            doctor_name=random_choice([doctor.name for doctor in doctors]),
-            rating=fake.random_int(1, 5),
-            comment=fake.paragraph(nb_sentences=3, variable_nb_sentences=True, ext_word_list=None),
-        )
-        reviews.append(review)
-
-# Add reviews to the database
-    db.session.add_all(reviews)
     
 
     appointments = []
