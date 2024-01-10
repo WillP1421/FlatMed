@@ -5,7 +5,7 @@ import Doctors from "./Doctors"; // Import the Doctors component
 const Directory = () => {
     return (
         <div>
-            <div className="container">
+            <div>
                 <Doctors /> {/* Render the Doctors component here */}
             </div>
         </div>

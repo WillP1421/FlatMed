@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Admin.css';
+
 const Admin = () => {
   const [patients, setPatients] = useState([]);
   const [editingPatient, setEditingPatient] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // Fetch patients from the backend when the component mounts
@@ -37,6 +39,18 @@ const Admin = () => {
       .finally(() => setEditingPatient(null)); // Stop editing after saving
   };
 
+  const handleDeleteClick = (patientId) => {
+    // Send a DELETE request to remove the patient
+    fetch(`/patients/${patientId}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        // Remove the deleted patient from the patients list
+        setPatients(patients.filter(patient => patient.id !== patientId));
+      })
+      .catch(error => console.error('Error deleting patient:', error));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditingPatient(prevPatient => ({
@@ -45,36 +59,44 @@ const Admin = () => {
     }));
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredPatients = patients.filter(patient =>
+    patient.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h2>Admin - Manage Patients</h2>
+      <div>
+        <label htmlFor="search">Search by Name:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
       <ul>
-        {patients.map(patient => (
+        {filteredPatients.map(patient => (
           <li key={patient.id}>
             {editingPatient && editingPatient.id === patient.id ? (
               <div>
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name" value={editingPatient.name} onChange={handleInputChange} />
-                <label htmlFor="email">Email:</label>
-                <input type="text" id="email" name="email" value={editingPatient.email} onChange={handleInputChange} />
-                <label htmlFor="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" value={editingPatient.phone} onChange={handleInputChange} />
-                <label htmlFor="address">Address:</label>
-                <input type="text" id="address" name="address" value={editingPatient.address} onChange={handleInputChange} />
-                <lable htmlFor="password">Password:</lable>
-                <input type="text" id="password" name="password" value={editingPatient.password} onChange={handleInputChange} />
-                {/* Repeat similar input fields for other patient properties */}
+                {/* ... (unchanged) */}
                 <button onClick={handleSaveClick}>Save</button>
               </div>
             ) : (
               <div>
-                <strong>Name:</strong> {patient.name}<br />
-                <strong>Email:</strong> {patient.email}<br />
-                <strong>Phone:</strong> {patient.phone}<br />
-                <strong>Address:</strong> {patient.address}<br />
-                <strong>Password:</strong> {patient.password}<br />
-                {/* Repeat similar display for other patient properties */}
+                {/* ... (unchanged) */}
+                <p>{patient.name}</p>
+                <p>{patient.email}</p>
+                <p>{patient.phone}</p>
+                <p>{patient.address}</p>
                 <button onClick={() => handleEditClick(patient)}>Edit</button>
+                <button onClick={() => handleDeleteClick(patient.id)}>Delete</button>
               </div>
             )}
           </li>
@@ -85,3 +107,5 @@ const Admin = () => {
 };
 
 export default Admin;
+
+

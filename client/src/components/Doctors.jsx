@@ -27,7 +27,10 @@ const Doctors = () => {
 
   return (
     <div>
-      <NavBar />
+      <div>
+        <NavBar />
+      </div>
+      
 
       <div className="container">
         <h2>Medical Directory</h2>
