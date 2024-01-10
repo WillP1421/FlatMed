@@ -1,8 +1,12 @@
 import React from "react";
-
+import NavBar from "./NavBar";
 
 const LoginPage = () => {
-    return <h1>LoginPage</h1>;
+    return (
+        <div>
+            <NavBar />
+        </div>        
+    )
 }
 
 
