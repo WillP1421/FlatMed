@@ -1,0 +1,87 @@
+/* Reset some default styles */
+body, h1, h2, p, ul, li, a, button, input, textarea, select {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style the container */
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style headings */
+h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style the dropdown */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Style the doctors list */
+ul.doctors-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.doctors-list li {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+ul.doctors-list li strong {
+    font-weight: bold;
+}
+
+/* Style the horizontal line */
+ul.doctors-list li hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* Style the navbar */
+.nav {
+    background-color: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover {
+    color: #ff9900;
+}
