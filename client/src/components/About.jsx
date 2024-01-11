@@ -5,8 +5,8 @@ const About = () => {
     return (
         <div>
             <NavBar />
-            <div className="container">
-                <div className="content">
+            <div className="container_About">
+                <div className="content_About">
                     <h2>About Us</h2>
                     <p>Welcome to FlatMed - Your Trusted Medical Directory</p>
 

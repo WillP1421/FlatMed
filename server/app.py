@@ -22,11 +22,67 @@ api = Api(app)
 
 class PatientList(Resource):
     def get(self):
-        response_body= [patient.to_dict(only=('id','name', 'email', 'phone', 'address', 'password')) for patient in Patient.query.all()]
+        response_body= [patient.to_dict(only=('id','name', 'email', 'phone', 'address')) for patient in Patient.query.all()]
         return make_response(response_body, 200)
+    
+    def post(self):
+        data = request.get_json()
+        patient = Patient(
+            name=data['name'],
+            email=data['email'],
+            phone=data['phone'],
+            address=data['address'],
+            password=data['password']
+        )
+        db.session.add(patient)
+        db.session.commit()
+        return make_response(patient.to_dict(only=('id','name', 'email', 'phone', 'address')), 201)
     
 api.add_resource(PatientList, '/patients')
 
+
+class PatientById(Resource):
+    def get(self, id):
+        response_body= Patient.query.get_or_404(id).to_dict(only=('id','name', 'email', 'phone', 'address', 'password'))
+        return make_response(response_body, 200)
+    
+    def delete(self, id):
+       patient = Patient.query.filter(Patient.id == id).first()
+
+       if patient:
+           db.session.delete(patient)
+           db.session.commit()
+           response_body = {}
+           return make_response(response_body, 204)
+       
+       else:
+           response_body = {'message': 'Patient not found'}
+           return make_response(response_body, 404)
+    def patch(self, id):
+        patient = Patient.query.get_or_404(id)
+        data = request.get_json()
+        for field in data:
+            setattr(patient, field, data[field])
+        db.session.add(patient)
+        db.session.commit()
+        return make_response(patient.to_dict(only=('id','name', 'email', 'phone', 'address')), 200)
+    
+api.add_resource(PatientById, '/patients/<int:id>')
+
+class Login(Resource):
+    def post(self):
+        data = request.get_json()
+        email = data['email']
+        password = data['password']
+        patient = Patient.query.filter_by(email=email, password=password).first()
+        if patient:
+            response_body = patient.to_dict(only=('id','name', 'email', 'phone', 'address'))
+            return make_response(response_body, 200)
+        else:
+            response_body = {'message': 'Invalid email or password'}
+            return make_response(response_body, 401)
+
+api.add_resource(Login, '/login')
 class DoctorList(Resource):
     def get(self):
         response_body= [doctor.to_dict(only=('id','name', 'email', 'phone', 'specialty', 'address')) for doctor in Doctor.query.all()]
@@ -50,6 +106,14 @@ class AllReviews(Resource):
     
 api.add_resource(AllReviews, '/reviews')
 
+
+
+class CheckSession(Resource):
+    def get(self):
+        response_body = {}
+        return make_response(response_body, 200)
+    
+api.add_resource(CheckSession, '/checksession')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

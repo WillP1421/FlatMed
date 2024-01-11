@@ -1,3 +1,5 @@
+
+// Doctors.js
 import React, { useState, useEffect } from 'react';
 import NavBar from './NavBar';
 import './Doctors.css';
@@ -31,16 +33,16 @@ const Doctors = () => {
         <NavBar />
       </div>
       
-
-      <div className="container">
+      <div className="doctors-container">
         <h2>Medical Directory</h2>
 
         {/* Specialty Dropdown */}
-        <label htmlFor="specialtyDropdown">Select Specialty:</label>
+        <label htmlFor="specialtyDropdown" className="specialty-label">Select Specialty:</label>
         <select
           id="specialtyDropdown"
           value={selectedSpecialty}
           onChange={handleSpecialtyChange}
+          className="specialty-dropdown"
         >
           {specialties.map(specialty => (
             <option key={specialty} value={specialty}>{specialty}</option>
@@ -50,13 +52,13 @@ const Doctors = () => {
         {/* List of Doctors */}
         <ul className="doctors-list">
           {filteredDoctors.map(doctor => (
-            <li key={doctor.id}>
-              <strong>Name:</strong> {doctor.name}<br />
-              <strong>Email:</strong> {doctor.email}<br />
-              <strong>Phone:</strong> {doctor.phone}<br />
-              <strong>Specialty:</strong> {doctor.specialty}<br />
-              <strong>Address:</strong> {doctor.address}<br />
-              <hr />
+            <li key={doctor.id} className="doctor-item">
+              <strong className="info-label">Name:</strong> {doctor.name}<br />
+              <strong className="info-label">Email:</strong> {doctor.email}<br />
+              <strong className="info-label">Phone:</strong> {doctor.phone}<br />
+              <strong className="info-label">Specialty:</strong> {doctor.specialty}<br />
+              <strong className="info-label">Address:</strong> {doctor.address}<br />
+              <hr className="separator" />
             </li>
           ))}
         </ul>

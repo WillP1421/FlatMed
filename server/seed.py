@@ -12,6 +12,9 @@ with app.app_context():
 
     fake = Faker()
 
+    def format_phone(raw_phone):
+        return f"({raw_phone[0:3]}) {raw_phone[3:6]}-{raw_phone[6:]}"
+
     custom_specialties = ['Cardiologist', 'Dermatologist', 'Pediatrician', 'Orthopedic Surgeon', 'Neurologist', 'Gynecologist', 'Ophthalmologist', 'General Practitioner', 'Urologist', 'ENT', 'Plastic Surgeon']
     specialty_addresses = {
         'Cardiologist': '123 Main St, Anytown, USA',
@@ -33,11 +36,13 @@ with app.app_context():
         email = fake.email()
         while Patient.query.filter_by(email=email).first() is not None:
             email = fake.email()
+        raw_phone = fake.numerify(text='##########')
+        formatted_phone = format_phone(raw_phone)
         
         patient = Patient(
             name=fake.name(),
             email=email,
-            phone=fake.phone_number(),
+            phone=formatted_phone,
             address=fake.address(),
             password=fake.password()
         )
@@ -51,11 +56,13 @@ with app.app_context():
         email = fake.email()
         while Doctor.query.filter_by(email=email).first() is not None:
             email = fake.email()
+        raw_phone = fake.numerify(text='##########')
+        formatted_phone = format_phone(raw_phone)
 
         doctor = Doctor(
             name=fake.name(),
             email=email,
-            phone=fake.phone_number(),
+            phone=formatted_phone,
             specialty=specialty,
             address=specialty_addresses[specialty],  # Use the corresponding address for the chosen specialty
         )

@@ -55,8 +55,8 @@ class Doctor(db.Model, SerializerMixin):
 class Appointment(db.Model, SerializerMixin):
     __tablename__ = "appointments"
     id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey("patients.id"), nullable=False)
-    doctor_id = db.Column(db.Integer, db.ForeignKey("doctors.id"), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey("patients.id"))
+    doctor_id = db.Column(db.Integer, db.ForeignKey("doctors.id"))
     doctor_address = db.Column(db.String(120), nullable=False)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
@@ -71,8 +71,8 @@ class Appointment(db.Model, SerializerMixin):
 class Review(db.Model, SerializerMixin):
     __tablename__ = "reviews"
     id = db.Column(db.Integer, primary_key=True)
-    patient_name = db.Column(db.String(80), db.ForeignKey("patients.name"), nullable=False)
-    doctor_name = db.Column(db.String(80), db.ForeignKey("doctors.name"), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey("patients.id"), nullable=False)
+    doctor_id = db.Column(db.Integer, db.ForeignKey("doctors.id"), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(500), nullable=False)
 
@@ -80,4 +80,4 @@ class Review(db.Model, SerializerMixin):
     doctor = db.relationship("Doctor", back_populates="reviews")
 
     def __repr__(self):
-        return f"Review('{self.patient_name}', '{self.doctor_name}', '{self.rating}', '{self.comment}')"
+        return f"Review('{self.patient_id}', '{self.doctor_id}', '{self.rating}', '{self.comment}')"

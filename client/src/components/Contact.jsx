@@ -1,3 +1,4 @@
+// Contact.js
 import React, { useState } from 'react';
 import NavBar from './NavBar';
 import './Contact.css';
@@ -33,8 +34,8 @@ const Contact = () => {
     return (
         <div>
             <NavBar />
-            <div className="container">
-                <div className="content">
+            <div className="contact-container">
+                <div className="contact-content">
                     <h2>Contact Us</h2>
                     {submitted ? (
                         <p className="thank-you-message">Thank you for your feedback!</p>
@@ -50,7 +51,7 @@ const Contact = () => {
 
                             <p>Alternatively, you can use the contact form below:</p>
 
-                            <form onSubmit={handleSubmit}>
+                            <form className="contact-form" onSubmit={handleSubmit}>
                                 <label htmlFor="name">Your Name:</label>
                                 <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
 
@@ -71,4 +72,3 @@ const Contact = () => {
 }
 
 export default Contact;
-

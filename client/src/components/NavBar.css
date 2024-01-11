@@ -1,11 +1,7 @@
-/* Reset some default styles */
-body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-}
+/* NavBar.css */
 
-/* Style the navigation bar */
-.nav {
+/* Unique navigation bar styles */
+.unique-nav {
     background-color: #333;
     padding: 10px;
     display: flex;
@@ -14,22 +10,22 @@ body, h1, h2, h3, p, ul, li {
     color: #fff;
 }
 
-/* Style the logo */
-.logo {
+/* Unique logo styles */
+.unique-logo {
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;
 }
 
-/* Style the navigation links */
-.nav a {
+/* Unique navigation link styles */
+.unique-link {
     color: #fff;
     text-decoration: none;
     margin: 0 15px;
     transition: color 0.3s ease;
 }
 
-.nav a:hover {
+.unique-link:hover {
     color: #ff9900; /* Change the color on hover */
 }
