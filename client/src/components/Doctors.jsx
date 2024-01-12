@@ -1,11 +1,10 @@
-
-// Doctors.js
 import React, { useState, useEffect } from 'react';
 import NavBar from './NavBar';
 import './Doctors.css';
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
+  const [reviews, setReviews] = useState({});
   const [selectedSpecialty, setSelectedSpecialty] = useState('All');
 
   useEffect(() => {
@@ -14,9 +13,33 @@ const Doctors = () => {
       .then(response => response.json())
       .then(data => setDoctors(data))
       .catch(error => console.error('Error fetching doctors:', error));
-  }, []); // The empty dependency array ensures the effect runs only once
+  }, []);
 
-  // Get unique specialties for dropdown
+  useEffect(() => {
+    // Fetch reviews for each doctor when the component is loaded
+    const fetchReviews = async () => {
+      const reviewsData = {};
+
+      for (const doctor of doctors) {
+        try {
+          const response = await fetch(`/doctors/reviews/${doctor.id}`);
+          if (response.ok) {
+            const data = await response.json();
+            reviewsData[doctor.id] = data;
+          } else {
+            console.error(`Error fetching reviews for doctor ${doctor.id}`);
+          }
+        } catch (error) {
+          console.error(`Error fetching reviews for doctor ${doctor.id}:`, error);
+        }
+      }
+
+      setReviews(reviewsData);
+    };
+
+    fetchReviews();
+  }, []); // Empty dependency array ensures the effect runs only once on component mount
+
   const specialties = ['All', ...new Set(doctors.map(doctor => doctor.specialty))];
 
   const handleSpecialtyChange = (e) => {
@@ -32,7 +55,7 @@ const Doctors = () => {
       <div>
         <NavBar />
       </div>
-      
+
       <div className="doctors-container">
         <h2>Medical Directory</h2>
 
@@ -59,6 +82,18 @@ const Doctors = () => {
               <strong className="info-label">Specialty:</strong> {doctor.specialty}<br />
               <strong className="info-label">Address:</strong> {doctor.address}<br />
               <hr className="separator" />
+
+              {/* Display Reviews for the Doctor */}
+              <h3>Reviews:</h3>
+              <ul>
+                {reviews[doctor.id] &&
+                  reviews[doctor.id].map(review => (
+                    <li key={review.id}>
+                      <strong>Rating:</strong> {review.rating}<br />
+                      <strong>Comment:</strong> {review.comment}
+                    </li>
+                  ))}
+              </ul>
             </li>
           ))}
         </ul>
@@ -68,4 +103,3 @@ const Doctors = () => {
 };
 
 export default Doctors;
-

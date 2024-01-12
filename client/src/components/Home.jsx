@@ -1,4 +1,4 @@
-// Home.jsx
+
 import React from "react";
 import { NavLink } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -11,7 +11,7 @@ const Home = () => {
                 <NavBar />
             </div>
 
-            {/* Hero Section */}
+            
             <section className="home-hero">
                 <div className="hero-content">
                     <h1>Welcome to FlatMed</h1>
@@ -19,7 +19,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Call-to-Action Section */}
+            
             <section className="home-cta">
                 <div className="cta-content">
                     <h2>Find the Right Healthcare Providers</h2>

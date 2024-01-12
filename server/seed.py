@@ -2,7 +2,7 @@
 
 # Local imports
 from app import app, db  # Adjust the import based on your application structure
-from models import Patient, Doctor, Appointment, Review
+from models import Patient, Doctor, Appointment, Review, User
 from random import choice as random_choice
 from faker import Faker
 
@@ -70,6 +70,25 @@ with app.app_context():
 
     db.session.add_all(patients)
     db.session.add_all(doctors)
+
+    users = []
+
+    # Seed for users
+    for n in range(30):
+        email = fake.email()
+        while User.query.filter_by(email=email).first() is not None:
+            email = fake.email()
+        raw_password = fake.password()
+        
+        user = User(
+            email=email,
+            password=raw_password,
+            admin=fake.boolean(chance_of_getting_true=20)  # Adjust the chance based on your preference
+        )
+        users.append(user)
+
+    db.session.query(User).delete()
+    db.session.add_all(users)
     
 
     appointments = []

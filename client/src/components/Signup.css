@@ -1,11 +1,10 @@
-/* Reset some default styles */
+
 body, h1, h2, h3, p, ul, li, a, button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Signup Container Styles */
 .signup-container {
   max-width: 400px;
   margin: 0 auto;
@@ -14,8 +13,6 @@ body, h1, h2, h3, p, ul, li, a, button {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-/* Signup Form Styles */
 .signup-form {
   display: flex;
   flex-direction: column;

@@ -1,14 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Admin.css';
 
 const Admin = () => {
   const [patients, setPatients] = useState([]);
   const [editingPatient, setEditingPatient] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch patients from the backend when the component mounts
+    
     fetch('/patients')
       .then(response => response.json())
       .then(data => setPatients(data))
@@ -16,12 +17,12 @@ const Admin = () => {
   }, []);
 
   const handleEditClick = (patient) => {
-    // Set the patient to start editing
+   
     setEditingPatient({ ...patient });
   };
 
   const handleSaveClick = () => {
-    // Send a PATCH request to update the patient data
+   
     fetch(`/patients/${editingPatient.id}`, {
       method: 'PATCH',
       headers: {
@@ -31,17 +32,17 @@ const Admin = () => {
     })
       .then(response => response.json())
       .then(updatedPatient => {
-        // Update the patients list with the updated data
+ 
         setPatients(patients.map(patient =>
           patient.id === editingPatient.id ? updatedPatient : patient
         ));
       })
       .catch(error => console.error('Error updating patient:', error))
-      .finally(() => setEditingPatient(null)); // Stop editing after saving
+      .finally(() => setEditingPatient(null)); 
   };
 
   const handleDeleteClick = (patientId) => {
-    // Send a DELETE request to remove the patient
+  
     fetch(`/patients/${patientId}`, {
       method: 'DELETE',
     })
@@ -49,12 +50,11 @@ const Admin = () => {
         if (!response.ok) {
           throw new Error(`Failed to delete patient with ID ${patientId}`);
         }
-        // Remove the deleted patient from the patients list
+       
         setPatients(patients.filter(patient => patient.id !== patientId));
       })
       .catch(error => console.error('Error deleting patient:', error));
   };
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -74,6 +74,9 @@ const Admin = () => {
 
   return (
     <div>
+      <div className="top-bar">
+        <button onClick={() => navigate('/login')}>Back to Login</button>
+      </div>
       <h2>Admin - Manage Patients</h2>
       <div>
         <label htmlFor="search">Search by Name:</label>
@@ -98,7 +101,6 @@ const Admin = () => {
                 <input type="tel" id="phone" name="phone" value={editingPatient.phone} onChange={handleInputChange} />
                 <label htmlFor="address">Address:</label>
                 <input type="text" id="address" name="address" value={editingPatient.address} onChange={handleInputChange} />
-                {/* Add similar inputs for other fields */}
                 <button onClick={handleSaveClick}>Save</button>
               </div>
             ) : (

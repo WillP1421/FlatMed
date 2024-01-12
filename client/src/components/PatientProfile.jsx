@@ -1,13 +1,15 @@
 // PatientProfile.jsx
-
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext'; // Assuming you have an AuthContext
+import { connect } from 'react-redux';
+import { updatePatientData } from './actions';
+import { AuthContext } from './AuthContext';
 
-const PatientProfile = () => {
+const PatientProfile = ({authData,updatePatientData}) => {
+
   const { id } = useParams();
   const navigate = useNavigate();
-  const { authData, setAuthData } = useContext(AuthContext);
+  const {setAuthData} = useContext(AuthContext);
 
   const [patientInfo, setPatientInfo] = useState({
     id: null,
@@ -20,7 +22,6 @@ const PatientProfile = () => {
   console.log(authData)
 
   useEffect(() => {
-    // Fetch the patient's information based on the ID from the URL
     const fetchPatientInfo = async () => {
       try {
         const response = await fetch(`http://localhost:5555/patients/${id}`);
@@ -59,29 +60,22 @@ const PatientProfile = () => {
       });
 
       if (response.ok) {
-        // Handle successful update (e.g., show a success message)
         console.log('Patient information updated successfully.');
 
-        // Update the authData with the new patient information
-        const updatedAuthData = { ...authData, patientData: patientInfo };
-        setAuthData(updatedAuthData);
+        updatePatientData(patientInfo);
 
-        // Navigate back to patient portal
         navigate('/patient_portal');
       } else {
-        // Handle update error (e.g., show an error message)
         console.error('Error updating patient information:', response.statusText);
       }
     } catch (error) {
       console.error('Error during update:', error);
     }
   };
-
-  return (
+return (
     <div>
       <h1>Edit Your Profile</h1>
       <form onSubmit={handleSubmit}>
-        {/* ... existing form inputs ... */}
         <label htmlFor="name">Name:</label>
         <input
           type="text"
@@ -134,4 +128,12 @@ const PatientProfile = () => {
   );
 };
 
-export default PatientProfile;
+const mapStateToProps = (state) => ({
+  authData: state.auth,
+});
+
+const mapDispatchToProps = {
+  updatePatientData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientProfile);

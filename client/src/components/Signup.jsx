@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link
+import { useNavigate, Link } from 'react-router-dom';
 import './Signup.css';
 
 const Signup = () => {
@@ -28,11 +28,9 @@ const Signup = () => {
             const response = await axios.post('/patients', formData);
             console.log('Patient created:', response.data);
 
-            // Redirect to /patient_portal upon successful signup
-            navigate('/patient_portal');
+            navigate('/login');
         } catch (error) {
             console.error('Error creating patient:', error);
-            // Handle error - show an error message to the user, etc.
         }
     };
 

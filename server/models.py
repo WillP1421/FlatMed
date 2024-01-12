@@ -6,6 +6,26 @@ from config import db
 
 # Models go here!
 
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(80), nullable=False)
+    admin = db.Column(db.Boolean, default=False)
+
+    def to_dict(self, only=None):
+        """Convert the user object to a dictionary."""
+        if only is None:
+            return {
+                'id': self.id,
+                'email': self.email,
+                'admin': self.admin
+            }
+        return {field: getattr(self, field) for field in only}
+
+    def __repr__(self):
+        return f"User('{self.email}', admin={self.admin})"
+
 class Patient(db.Model, SerializerMixin):
     __tablename__ = "patients"
     id = db.Column(db.Integer, primary_key=True)
@@ -58,6 +78,7 @@ class Appointment(db.Model, SerializerMixin):
     patient_id = db.Column(db.Integer, db.ForeignKey("patients.id"))
     doctor_id = db.Column(db.Integer, db.ForeignKey("doctors.id"))
     doctor_address = db.Column(db.String(120), nullable=False)
+    doctor_name = db.Column(db.String(80),default="Dr. Unknown", nullable=False)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
 
@@ -67,7 +88,7 @@ class Appointment(db.Model, SerializerMixin):
     def __repr__(self):
         return f"Appointment('{self.patient_id}', '{self.doctor_id}','{self.doctor_address}', '{self.date}', '{self.time}')"
     
-    
+
 class Review(db.Model, SerializerMixin):
     __tablename__ = "reviews"
     id = db.Column(db.Integer, primary_key=True)

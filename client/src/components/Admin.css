@@ -1,4 +1,4 @@
-/* Reset some default styles */
+
 body,
 h1,
 h2,
@@ -15,20 +15,19 @@ body {
     line-height: 1.6;
 }
 
-/* Page container */
+
 div {
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Header styles */
 h2 {
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-/* Search input styles */
+
 label[for="search"] {
     display: block;
     margin-bottom: 10px;
@@ -44,7 +43,7 @@ input[type="text"]#search {
     border-radius: 4px;
 }
 
-/* List styles */
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -57,7 +56,7 @@ li {
     margin-bottom: 20px;
 }
 
-/* Button styles */
+
 button {
     background-color: #000000;
     color: #fff;
@@ -74,7 +73,7 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Delete button styles */
+
 button.delete-button {
     background-color: #dc3545;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./About";
 import Contact from "./Contact";
@@ -10,6 +10,9 @@ import SignupPage from "./Signup";
 import Patient_Portal from "./Patient_Portal";
 import PatientProfile from "./PatientProfile";
 import { AuthProvider} from "./AuthContext";
+import ErrorBoundary from "../ErrorBoundary";
+import {store, persistor} from "../store";
+import { PersistGate } from 'redux-persist/integration/react';
 const App = () => {
 
 
@@ -55,9 +58,13 @@ const router = createBrowserRouter(routes);
 
   return (
   <div className='App'>
+    <ErrorBoundary>
     <AuthProvider>
+    <PersistGate loading={null} persistor={persistor}>
     <RouterProvider router={router}/>
+    </PersistGate>
     </AuthProvider>
+    </ErrorBoundary>
     </div>
   )
 }
