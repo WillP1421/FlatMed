@@ -1,4 +1,3 @@
-// PatientProfile.jsx
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';

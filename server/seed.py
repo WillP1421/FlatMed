@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Local imports
-from app import app, db  # Adjust the import based on your application structure
+from app import app, db
 from models import Patient, Doctor, Appointment, Review, User
 from random import choice as random_choice
 from faker import Faker
@@ -64,7 +64,7 @@ with app.app_context():
             email=email,
             phone=formatted_phone,
             specialty=specialty,
-            address=specialty_addresses[specialty],  # Use the corresponding address for the chosen specialty
+            address=specialty_addresses[specialty], 
         )
         doctors.append(doctor)
 
@@ -73,7 +73,6 @@ with app.app_context():
 
     users = []
 
-    # Seed for users
     for n in range(30):
         email = fake.email()
         while User.query.filter_by(email=email).first() is not None:
@@ -83,7 +82,7 @@ with app.app_context():
         user = User(
             email=email,
             password=raw_password,
-            admin=fake.boolean(chance_of_getting_true=20)  # Adjust the chance based on your preference
+            admin=fake.boolean(chance_of_getting_true=20) 
         )
         users.append(user)
 
@@ -96,9 +95,8 @@ with app.app_context():
     for n in range(50):
         patient = random_choice(Patient.query.all())
         doctor = random_choice(doctors)
-        date = fake.date_between(start_date='today', end_date='+30d')  # Generate a random date within the next 30 days 
+        date = fake.date_between(start_date='today', end_date='+30d')
 
-        # Generate a random time as a Python time object
         time_obj = time(fake.random_int(0, 23), fake.random_int(0, 59), fake.random_int(0, 59))
 
 

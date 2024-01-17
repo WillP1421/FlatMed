@@ -1,5 +1,3 @@
-// authMiddleware.js
-
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
@@ -10,7 +8,7 @@ function verifyToken(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_secret_key'); // Replace with your secret key
+    const decoded = jwt.verify(token, '21212121');
     req.user = decoded;
     next();
   } catch (err) {

@@ -189,21 +189,17 @@ class GetAppointmentById(Resource):
 
         data = request.get_json()
 
-        # Check if 'date' and 'time' are present in the incoming data
         if 'date' in data and 'time' in data:
-            # Convert the date string to a Python date object
+
             new_date_str = data['date']
             new_date_obj = datetime.strptime(new_date_str, '%Y-%m-%dT%H:%M:%S.%fZ').date()
 
-            # Convert the time string to a Python time object
             new_time_str = data['time']
             new_time_obj = datetime.strptime(new_time_str, '%H:%M').time()
 
-            # Update the appointment date and time with the new values
             appointment.date = new_date_obj
             appointment.time = new_time_obj
 
-        # Update other fields in a similar manner
         for field in data:
             if field not in ['date', 'time']:
                 setattr(appointment, field, data[field])
@@ -226,21 +222,18 @@ class AddAppointment(Resource):
     def post(self, patient_id):
         data = request.get_json()
 
-        # Assuming you have appropriate validation and error handling
         doctor_id = data.get('doctor_id')
         doctor = Doctor.query.filter_by(id=doctor_id).first()
 
         if not doctor:
             return make_response({'error': 'Doctor not found'}, 404)
 
-        # Convert the date string to a Python date object
         date_str = data.get('date')
         if date_str is None:
             return make_response({'error': 'Date is missing'}, 400)
 
         date_object = datetime.strptime(date_str, '%Y-%m-%d').date()
 
-        # Convert the time string to a Python time object
         time_str = data.get('time')
         if time_str is None:
             return make_response({'error': 'Time is missing'}, 400)
@@ -253,7 +246,7 @@ class AddAppointment(Resource):
             doctor_address=doctor.address,
             doctor_name=doctor.name,
             date=date_object,
-            time=time_object,  # Use the Python time object
+            time=time_object, 
         )
 
         db.session.add(new_appointment)

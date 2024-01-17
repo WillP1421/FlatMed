@@ -1,5 +1,3 @@
-// store/index.js
-
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistReducer, persistStore } from 'redux-persist';
@@ -25,7 +23,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'], // List of reducers to persist
+  whitelist: ['auth'], 
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

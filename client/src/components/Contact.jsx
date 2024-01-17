@@ -1,4 +1,3 @@
-// Contact.js
 import React, { useState } from 'react';
 import NavBar from './NavBar';
 import './Contact.css';

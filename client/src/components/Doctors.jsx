@@ -9,7 +9,6 @@ const Doctors = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Fetch doctors from the backend when the component mounts
     fetch('/doctors')
       .then(response => response.json())
       .then(data => setDoctors(data))
@@ -17,7 +16,6 @@ const Doctors = () => {
   }, []);
 
   useEffect(() => {
-    // Fetch reviews for each doctor when the component is loaded
     const fetchReviews = async () => {
       const reviewsData = {};
 
@@ -61,7 +59,7 @@ const Doctors = () => {
       <div className="doctors-container">
         <h2>Medical Directory</h2>
 
-        {/* Search Input */}
+        
         <label htmlFor="searchInput" className="search-label">Search by Name</label>
         <input
           type="text"
@@ -71,7 +69,6 @@ const Doctors = () => {
           className="search-input"
         />
 
-        {/* Specialty Dropdown */}
         <label htmlFor="specialtyDropdown" className="specialty-label">Select Specialty:</label>
         <select
           id="specialtyDropdown"
@@ -84,11 +81,10 @@ const Doctors = () => {
           ))}
         </select>
 
-        {/* List of Doctors */}
         <ul className="doctors-list">
           {filteredDoctors.map(doctor => (
             <li key={doctor.id} className="doctor-item">
-              {/* Doctor details */}
+              
               <strong className="info-label">Name:</strong> {doctor.name}<br />
               <strong className="info-label">Email:</strong> {doctor.email}<br />
               <strong className="info-label">Phone:</strong> {doctor.phone}<br />
@@ -96,13 +92,13 @@ const Doctors = () => {
               <strong className="info-label">Address:</strong> {doctor.address}<br />
               <hr className="separator" />
 
-              {/* Display Reviews for the Doctor */}
+              
               <h3>Reviews:</h3>
               <ul>
                 {reviews[doctor.id] &&
                   reviews[doctor.id].map(review => (
                     <li key={review.id}>
-                      {/* Review details */}
+                      
                       <strong>Rating:</strong> {review.rating}<br />
                       <strong>Comment:</strong> {review.comment}
                     </li>
