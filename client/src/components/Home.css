@@ -5,19 +5,6 @@ body, h1, h2, h3, p, ul, li, a, button, img {
     box-sizing: border-box;
 }
 
-
-.home-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-
-.home-navBar {
-    background-color: #333;
-}
-
-
 .home-hero {
     background: url('https://www.bostonmagazine.com/wp-content/uploads/sites/2/2021/01/Stethoscope.jpg') center/cover no-repeat;
     color: #fff;

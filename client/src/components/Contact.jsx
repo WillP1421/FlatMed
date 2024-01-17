@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import NavBar from './NavBar';
 import './Contact.css';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -47,7 +48,7 @@ const Contact = () => {
                                 <p><strong>Phone:</strong> +1 (555) 123-4567</p>
                                 <p><strong>Address:</strong> 123 Medical Street, Cityville, MD 12345</p>
                             </div>
-
+                            
                             <p>Alternatively, you can use the contact form below:</p>
 
                             <form className="contact-form" onSubmit={handleSubmit}>
@@ -62,6 +63,13 @@ const Contact = () => {
 
                                 <button type="submit">Submit</button>
                             </form>
+                            
+                            <div className="social-media-icons">
+                                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+                                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+                                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                            </div>
                         </>
                     )}
                 </div>

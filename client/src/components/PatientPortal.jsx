@@ -47,7 +47,6 @@ const PatientPortal = ({ authData, dispatch }) => {
       console.error('Error during appointment fetch:', error);
     }
   };
-
   const fetchDoctors = async () => {
     try {
       const response = await fetch('/doctors');
@@ -249,12 +248,14 @@ const PatientPortal = ({ authData, dispatch }) => {
 
       <div className="appointments-container">
         <h2>Your Appointments</h2>
-        <ul>
-          {appointments.map((appointment) => (
-            <li key={appointment.id}>
-              Doctor: {appointment.doctor_name}, Date: {appointment.date}, Time: {appointment.time}, Address: {appointment.doctor_address}
+          <ul>
+            {appointments
+              .sort((a, b) => new Date(a.date) - new Date(b.date)) // Sort appointments by date
+              .map((appointment) => (
+                <li key={appointment.id}>
+                  Doctor: {appointment.doctor_name}, Date: {appointment.date}, Time: {appointment.time}, Address: {appointment.doctor_address}
 
-            
+                    
               {editingAppointmentId === appointment.id ? (
                 <div className="edit-form">
                   <label htmlFor="newDate">New Date:</label>

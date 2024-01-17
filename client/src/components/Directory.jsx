@@ -5,6 +5,7 @@ import Doctors from "./Doctors";
 const Directory = () => {
     return (
         <div>
+            <NavBar />
             <div>
                 <Doctors />
             </div>

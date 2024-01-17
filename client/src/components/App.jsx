@@ -7,11 +7,11 @@ import LoginPage from "./LoginPage";
 import Home from "./Home";
 import Admin from "./Admin";
 import SignupPage from "./Signup";
-import Patient_Portal from "./Patient_Portal";
+import PatientPortal from "./PatientPortal";
 import PatientProfile from "./PatientProfile";
 import { AuthProvider} from "./AuthContext";
 import ErrorBoundary from "../ErrorBoundary";
-import {store, persistor} from "../store";
+import {persistor} from "../store";
 import { PersistGate } from 'redux-persist/integration/react';
 const App = () => {
 
@@ -47,7 +47,7 @@ const routes = [
     },
     {
       path: "/patient_portal",
-      element: <Patient_Portal />
+      element: <PatientPortal />
     },
     {
       path: "/patient_profile/:id",
