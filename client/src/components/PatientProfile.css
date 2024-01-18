@@ -1,0 +1,36 @@
+.patientProfileContainer {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .patientProfileTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .patientFormLabel {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  .patientFormInput {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  
+  .patientSaveButton {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .patientSaveButton:hover {
+    background-color: #2980b9;
+  }

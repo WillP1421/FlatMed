@@ -1,11 +1,11 @@
 
 .unique-nav {
     background-color: #333;
-    
+    height: 75px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     color: #fff;
+    justify-content: center;
 }
 
 

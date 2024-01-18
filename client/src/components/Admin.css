@@ -1,72 +1,81 @@
-
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-}
-
-
-div {
+.admin-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f5f5f5;
 }
+
+.admin-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+}
+
+.admin-back-home,
+.admin-back-login,
+.admin-save,
+.admin-edit,
+.admin-delete {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.admin-back-home:hover,
+.admin-back-login:hover,
+.admin-save:hover,
+.admin-edit:hover,
+.admin-delete:hover {
+    background-color: #2980b9;
+}
+
 
 h2 {
     color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
 }
 
-
-label[for="search"] {
+label {
     display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #333;
+    margin: 10px 0;
 }
 
-input[type="text"]#search {
+input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
 }
-
 
 ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
 }
 
 li {
     border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-
-button {
-    background-color: #000000;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-
-button.delete-button {
-    background-color: #dc3545;
-}
-
-button.delete-button:hover {
-    background-color: #c82333;
-}
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-edit-form {
+    text-align: left;
+  }
+  
+  .admin-save {
+    background-color: #27ae60;
+  }
+  
+  .admin-save:hover {
+    background-color: #219653;
+  }
+  

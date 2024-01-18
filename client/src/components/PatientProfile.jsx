@@ -3,12 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updatePatientData } from './actions';
 import { AuthContext } from './AuthContext';
+import './PatientProfile.css';
 
-const PatientProfile = ({authData,updatePatientData}) => {
-
+const PatientProfile = ({ authData, updatePatientData }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const {setAuthData} = useContext(AuthContext);
+  const { setAuthData } = useContext(AuthContext);
 
   const [patientInfo, setPatientInfo] = useState({
     id: null,
@@ -18,7 +18,6 @@ const PatientProfile = ({authData,updatePatientData}) => {
     address: '',
     password: '',
   });
-  console.log(authData)
 
   useEffect(() => {
     const fetchPatientInfo = async () => {
@@ -71,57 +70,75 @@ const PatientProfile = ({authData,updatePatientData}) => {
       console.error('Error during update:', error);
     }
   };
-return (
-    <div>
-      <h1>Edit Your Profile</h1>
+
+  return (
+    <div className="patientProfileContainer">
+      <h1 className="patientProfileTitle">Edit Your Profile</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name" className="patientFormLabel">
+          Name:
+        </label>
         <input
           type="text"
           id="name"
           name="name"
           value={patientInfo.name}
           onChange={handleChange}
+          className="patientFormInput"
           required
         />
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email" className="patientFormLabel">
+          Email:
+        </label>
         <input
           type="email"
           id="email"
           name="email"
           value={patientInfo.email}
           onChange={handleChange}
+          className="patientFormInput"
           required
         />
-        <label htmlFor="phone">Phone:</label>
+        <label htmlFor="phone" className="patientFormLabel">
+          Phone:
+        </label>
         <input
           type="tel"
           id="phone"
           name="phone"
           value={patientInfo.phone}
           onChange={handleChange}
+          className="patientFormInput"
           required
         />
-        <label htmlFor="address">Address:</label>
+        <label htmlFor="address" className="patientFormLabel">
+          Address:
+        </label>
         <input
           type="text"
           id="address"
           name="address"
           value={patientInfo.address}
           onChange={handleChange}
+          className="patientFormInput"
           required
         />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password" className="patientFormLabel">
+          Password:
+        </label>
         <input
           type="password"
           id="password"
           name="password"
           value={patientInfo.password}
           onChange={handleChange}
+          className="patientFormInput"
           required
         />
 
-        <button type="submit">Save Changes</button>
+        <button className="patientSaveButton" type="submit">
+          Save Changes
+        </button>
       </form>
     </div>
   );

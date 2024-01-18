@@ -52,7 +52,7 @@ const LoginPage = ({ loginSuccess }) => {
   
         if (response.ok) {
           const adminData = await response.json();
-          console.log('Admin login successful:', adminData);
+
   
           
           Cookies.set('authToken', adminData.token, { secure: true, httpOnly: true });

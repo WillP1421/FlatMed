@@ -9,20 +9,20 @@ const Admin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     fetch('/patients')
       .then(response => response.json())
-      .then(data => setPatients(data))
+      .then(data => {
+        const sortedPatients = data.sort((a, b) => a.name.localeCompare(b.name));
+        setPatients(sortedPatients);
+      })
       .catch(error => console.error('Error fetching patients:', error));
   }, []);
 
   const handleEditClick = (patient) => {
-   
     setEditingPatient({ ...patient });
   };
 
   const handleSaveClick = () => {
-   
     fetch(`/patients/${editingPatient.id}`, {
       method: 'PATCH',
       headers: {
@@ -32,17 +32,15 @@ const Admin = () => {
     })
       .then(response => response.json())
       .then(updatedPatient => {
- 
         setPatients(patients.map(patient =>
           patient.id === editingPatient.id ? updatedPatient : patient
         ));
       })
       .catch(error => console.error('Error updating patient:', error))
-      .finally(() => setEditingPatient(null)); 
+      .finally(() => setEditingPatient(null));
   };
 
   const handleDeleteClick = (patientId) => {
-  
     fetch(`/patients/${patientId}`, {
       method: 'DELETE',
     })
@@ -50,7 +48,6 @@ const Admin = () => {
         if (!response.ok) {
           throw new Error(`Failed to delete patient with ID ${patientId}`);
         }
-       
         setPatients(patients.filter(patient => patient.id !== patientId));
       })
       .catch(error => console.error('Error deleting patient:', error));
@@ -73,9 +70,10 @@ const Admin = () => {
   );
 
   return (
-    <div>
-      <div className="top-bar">
-        <button onClick={() => navigate('/login')}>Back to Login</button>
+    <div className="admin-container">
+      <div className="admin-top-bar">
+        <button className="admin-back-home" onClick={() => navigate('/')}>Back to Home</button>
+        <button className="admin-back-login" onClick={() => navigate('/login')}>Back to Login</button>
       </div>
       <h2>Admin - Manage Patients</h2>
       <div>
@@ -101,16 +99,13 @@ const Admin = () => {
                 <input type="tel" id="phone" name="phone" value={editingPatient.phone} onChange={handleInputChange} />
                 <label htmlFor="address">Address:</label>
                 <input type="text" id="address" name="address" value={editingPatient.address} onChange={handleInputChange} />
-                <button onClick={handleSaveClick}>Save</button>
+                <button className="admin-save" onClick={handleSaveClick}>Save</button>
               </div>
             ) : (
               <div>
                 <p>{patient.name}</p>
-                <p>{patient.email}</p>
-                <p>{patient.phone}</p>
-                <p>{patient.address}</p>
-                <button onClick={() => handleEditClick(patient)}>Edit</button>
-                <button onClick={() => handleDeleteClick(patient.id)}>Delete</button>
+                <button className="admin-edit" onClick={() => handleEditClick(patient)}>Edit</button>
+                <button className="admin-delete" onClick={() => handleDeleteClick(patient.id)}>Delete</button>
               </div>
             )}
           </li>
